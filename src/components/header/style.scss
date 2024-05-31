@@ -1,0 +1,63 @@
+@import "~/src/sass/style.scss";
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    background: $gray-light;
+    padding: 10px 15px;
+    // box-shadow: 0px 1px 4px #999;
+    height: 60px;
+
+    &__company {
+        width: 100%;
+        display: flex;
+        align-items: center;
+    }
+
+    &__company-logo {
+        height: 30px;
+        width: 30px;
+        font-size: 0;
+        display: inline-block;
+    }
+
+    &__company-label {
+        font-weight: bold;
+        color: $gray-darker;
+        margin-left: 5px;
+        font-size: 24px;
+    }
+
+    &__search {
+        height: 30px;
+        width: 30px;
+        font-size: 0;
+        margin-right: 16px;
+        display: inline-block;
+    }
+
+    &__search-input {
+        width: 100%;
+    }
+}
+
+@include medium-up {
+    .header {
+        height: 70px;
+
+        &__company-label {
+            margin-left: 10px;
+            font-size: 32px;
+        }
+
+        &__company-logo {
+            height: 50px;
+            width: 50px;
+        }
+    }
+}

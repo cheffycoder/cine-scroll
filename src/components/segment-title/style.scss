@@ -1,0 +1,23 @@
+@import '~/src/sass/style';
+
+.segment-title {
+  margin-bottom: 20px;
+  margin-left: 20px;
+
+  &--align-left {
+    text-align: left;
+  }
+
+  &--align-center {
+    text-align: center;
+  }
+
+  &--align-right {
+    text-align: right;
+  }
+
+  &__sub {
+    margin-top: 20px;
+    letter-spacing: 0;
+  }
+}

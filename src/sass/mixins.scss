@@ -1,0 +1,25 @@
+@import 'constant.scss';
+
+@mixin extra-large-up {
+  @media #{$extra-large-up} {
+    @content;
+  }
+}
+
+@mixin large-up {
+  @media #{$large-up} {
+    @content;
+  }
+}
+
+@mixin medium-up {
+  @media #{$medium-up} {
+    @content;
+  }
+}
+
+@mixin small-up {
+  @media #{$small-up} {
+    @content;
+  }
+}

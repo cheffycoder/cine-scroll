@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "jsx": "react",
+    "sourceMap": false,
+    "outDir": "./build",
+    "strict": true,
+    "esModuleInterop": true,
+    "baseUrl": "./",
+    "paths": {
+      "@*": ["./src/*"],
+    }
+  },
+  "include": ["./src/**/*"]
+}

@@ -1,0 +1,63 @@
+@import "~/src/sass/style.scss";
+
+
+.filter-group {
+    display: flex;
+    align-items: center;
+    
+    &__container {
+        display: flex;
+        gap: 10px;
+        overflow-x: auto;
+        padding: 10px;
+        margin: 0 5px;
+    }
+
+    &__chip {
+        padding: 1px 5px;
+        border: 1px solid $gray-darker;
+        border-radius: 5px;
+        cursor: pointer;
+
+        &:hover {
+            background-color: $gray-light
+        }
+
+        &--selected {
+            background-color: $primary;
+            border: 1px solid $primary;
+
+            &:hover {
+                background-color: $primary;
+            }
+        }
+    }
+
+    &__label {
+        color: $gray-darker;
+        white-space: nowrap;
+
+        &--selected {
+            color: $white;
+        }
+    }
+
+    &__right-arrow {
+        height: 30px;
+        width: 30px;
+        font-size: 0;
+        padding-left: 5px;
+    }
+}
+
+@include medium-up {
+    .filter-group {
+        &__chip {
+            padding: 3px 12px;
+        }
+
+        &__container {
+            padding: 12px;
+        }
+    }
+}

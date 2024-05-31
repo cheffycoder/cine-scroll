@@ -1,0 +1,22 @@
+@import "~/src/sass/style.scss";
+
+.back-to-home {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+
+    a {
+        display: block;
+        height: 30px;
+    }
+
+    &__image {
+        height: 30px;
+        width: 30px;
+        font-size: 0;
+    }
+
+    &__label {
+        color: $gray-darker;
+    }
+}

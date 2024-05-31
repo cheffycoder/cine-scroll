@@ -1,0 +1,92 @@
+@import "~/src/sass/style.scss";
+
+.movie-card {
+
+  &__container {
+    padding: 20px;
+    flex: 0 0 100%;
+  }
+
+  border: 1px solid $gray-light;
+  border-radius: 10px;
+  height: 500px;
+
+  list-style: none;
+
+  display: flex;
+  flex-direction: column;
+
+  overflow: hidden;
+  border-radius: 10px;
+  transition: all 0.4s;
+
+  &__poster {
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    height: 70%;
+
+    img {
+      object-fit: cover;
+    }
+  }
+
+  &__info {
+    padding: 15px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  &__title {
+
+    text-overflow: ellipsis;
+    white-space: normal;
+    overflow: hidden;
+
+    max-height: 100px;
+    margin-bottom: 10px;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    /* Number of lines to show */
+    -webkit-box-orient: vertical;
+  }
+
+  &__release-date {
+    margin-bottom: 5px;
+    padding: 2px 5px;
+    border: 1px dotted $gray-dark;
+    border-radius: 5px;
+  }
+
+  &__desc {
+    text-overflow: ellipsis;
+    white-space: normal;
+    overflow: hidden;
+
+    max-height: 90px;
+    margin-bottom: 10px;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    /* Number of lines to show */
+    -webkit-box-orient: vertical;
+  }
+}
+
+@include small-up {
+  .movie-card {
+    &__container {
+      flex: 0 0 50%;
+    }
+  }
+}
+
+@include large-up {
+  .movie-card {
+    &__container {
+      flex: 0 0 33.33%;
+    }
+  }
+}

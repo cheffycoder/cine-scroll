@@ -1,0 +1,12 @@
+@import "~/src/sass/style.scss";
+
+
+.illustration {
+    width: 50%;
+    height: 50%;
+
+    &__description {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+}

@@ -1,18 +1,15 @@
 @import "~/src/sass/style.scss";
 
 .year-section {
-    padding: 25px 0;
     width: 100%;
+    margin-bottom: 50px;
+    border: 1px dotted $gray-dark;
+    border-radius: 15px;
+    background: $gray-lighter;
 
     &__movies-list {
         display: flex;
         flex-wrap: wrap;
         align-items: center;
-    }
-}
-
-@include medium-up {
-    .year-section {
-        padding-bottom: 100px;
     }
 }

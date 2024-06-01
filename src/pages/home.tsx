@@ -26,7 +26,8 @@ const Home = () => {
     (async () => {
       setLoading(true);
       const genres = await getGenres();
-      setGenres(genres);
+      setGenres([{id: 0, name: "All"} ,...genres]);
+      setAppliedFilter(0);
       setLoading(false);
     })();
   }, []);

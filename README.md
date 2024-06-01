@@ -1,6 +1,9 @@
 # Cine-Scroll
 Cine-Scroll is a movie information app that displays a list of movies from The Movie Database (TMDb) API. The app shows top movies for each year, and users can filter by genre. It also loads top movies from previous or next years as the user scrolls through the list.
 
+## Deployed Demo
+You can view the deployed demo of the project [here](https://cine-scroll.onrender.com).
+
 
 ## Setting Up the Project Locally
 

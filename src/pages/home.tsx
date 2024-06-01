@@ -1,14 +1,8 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 
-import { Container } from "@base";
-import { ActionsContainer, FilterGroup, SegmentTitle } from "@components";
-
-// import { genres } from "./../data/filters";
-// import { movielist } from "@data/movies";
-import MovieYearSection from "@components/year-section";
-import MoviesContainer from "@components/movies-container";
 import { getGenres } from "@api/genres";
-import { Spinner } from "@base";
+import { Container, Spinner } from "@base";
+import { ActionsContainer, FilterGroup, MoviesContainer } from "@components";
 
 type tGenre = {
   id: number;

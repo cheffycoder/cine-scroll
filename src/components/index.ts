@@ -9,6 +9,7 @@ import ScrollToTop from "./scroll-to-top";
 import SearchInput from "./search";
 import SegmentTitle from "./segment-title";
 import YearSection from "./year-section";
+import MoviesContainer from "./movies-container";
 
 
 export {
@@ -22,5 +23,6 @@ export {
   ScrollToTop,
   SearchInput,
   SegmentTitle,
-  YearSection
+  YearSection,
+  MoviesContainer
 };

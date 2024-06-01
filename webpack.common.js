@@ -1,3 +1,8 @@
+const webpack = require('webpack');
+const Dotenv = require('dotenv-webpack')
+
+// Load environment variables from .env file
+
 const path = require("path");
 
 const HtmlWebPackPlugin = require("html-webpack-plugin");
@@ -56,5 +61,15 @@ module.exports = {
       filename: "./index.html",
       favicon: "./src/images/favicon.ico"
     }),
+
+    // DefinePlugin to inject environment variables into the application
+    // Use Dotenv to inject environment variables
+    new Dotenv({
+      path: './.env', // Path to .env file (this is the default)
+      safe: false, // Load '.env.example' to verify the '.env' variables are all set. Can also be a string to a different file.
+      systemvars: true, // Load all system variables as well (useful for CI environments)
+      silent: true // Hide any errors
+    }),
+
   ],
 };

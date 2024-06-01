@@ -2,6 +2,7 @@ import React from "react";
 
 import { bemClass } from "@utils";
 // import { movies } from "@data/movies";
+import { Text } from "@base";
 import { MovieCard, SegmentTitle } from "@components";
 
 import "./style.scss";
@@ -24,8 +25,8 @@ export type tMovie = {
 };
 
 type tYearSection = {
-  movies: Array<tMovie>,
-  year: number | string
+  movies: Array<tMovie>;
+  year: number | string;
 };
 
 const blk = "year-section";
@@ -33,11 +34,17 @@ const YearSection = ({ movies, year }: tYearSection) => {
   return (
     <section className={blk}>
       <SegmentTitle>{year}</SegmentTitle>
-      <ul className={bemClass([blk, "movies-list"])}>
-        {movies.map((movie: tMovie) => {
-          return <MovieCard key={movie.id} movie={movie} />;
-        })}
-      </ul>
+      {movies.length ? (
+        <ul className={bemClass([blk, "movies-list"])}>
+          {movies.map((movie: tMovie) => {
+            return <MovieCard key={movie.id} movie={movie} />;
+          })}
+        </ul>
+      ) : (
+        <div className={bemClass([blk, "no-movies"])}>
+          <Text tag="p" typography="s">No Movies available</Text>
+        </div>
+      )}
     </section>
   );
 };

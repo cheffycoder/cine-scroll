@@ -20,45 +20,65 @@ type tMoviesByYear = {
 const blk = "movies-container";
 const MoviesContainer = ({ appliedFilter }: tMoviesContainerProps) => {
   // Local states
-  const [currentYear, setCurrentYear] = useState(2012);
+  const [_minYear, setMinYear] = useState(2012);
+  const [maxYear, setMaxYear] = useState(2012);
   const [loading, setLoading] = useState(true);
-  const [moviesByYear, setMoviesByYear] = useState<Array<tMoviesByYear> | []>(
-    []
-  );
-
-  console.log(moviesByYear, "moviesByYear");
-
-  // Local ref
-  const spinnerRef = useRef(null);
+  const [moviesByYear, setMoviesByYear] = useState<Array<tMoviesByYear> | []>([]);
 
   // Local variables
   const presentYear = new Date().getFullYear();
 
+  // Local ref
+  const containerRef = useRef<HTMLDivElement>(null);
+  const topRef = useRef<HTMLDivElement>(null);
+  const bottomRef = useRef(null);
+  
+  const handleTopIntersection = (entries: IntersectionObserverEntry[]) => {
+    const [entry] = entries;
+    if (entry.isIntersecting) {
+      setMinYear((prevYear) => {
+        loadPrevMovies(prevYear - 1, appliedFilter);
+        return prevYear - 1;
+      });
+    }
+  };
+
+  const handleBottomIntersection = (entries: IntersectionObserverEntry[]) => {
+    const [entry] = entries;
+    if (entry.isIntersecting) {
+      setMaxYear((prevYear) => {
+        if (prevYear !== presentYear) {
+          loadMoreMovies(prevYear + 1, appliedFilter);
+          return prevYear + 1;
+        }
+        return prevYear;
+      });
+    }
+  };
+
   useEffect(() => {
-    const handleIntersection = (entries: IntersectionObserverEntry[]) => {
-      const [entry] = entries;
-      if (entry.isIntersecting) {
-        setCurrentYear((prevYear) => {
-          if (prevYear !== presentYear) {
-            return prevYear + 1;
-          }
-          return prevYear;
-        });
-      }
-    };
 
     const options = {};
-    const observer = new IntersectionObserver(handleIntersection, options);
+    const topObserver = new IntersectionObserver(handleTopIntersection, options);
+    const bottomObserver = new IntersectionObserver(handleBottomIntersection, options);
 
     // Check if spinnerRef.current is not null
-    if (spinnerRef.current) {
-      observer.observe(spinnerRef.current);
+    if (topRef.current) {
+      topObserver.observe(topRef.current);
+    }
+
+    if (bottomRef.current) {
+      bottomObserver.observe(bottomRef.current);
     }
 
     // Clean up function
     return () => {
-      if (observer) {
-        observer.disconnect();
+      if (topObserver) {
+        topObserver.disconnect();
+      }
+
+      if(bottomObserver){
+        bottomObserver.disconnect();
       }
     };
   }, [loading]);
@@ -75,26 +95,46 @@ const MoviesContainer = ({ appliedFilter }: tMoviesContainerProps) => {
   };
 
   const loadMovies = async (year: number, genre?: number) => {
+    setLoading(true);
     const fetchedMovies = await fetchMovies(year, genre);
-    setMoviesByYear((_prevMovies) => [{ year: currentYear, movies: fetchedMovies }]);
+    setMoviesByYear((_prevMovies) => [{ year: year, movies: fetchedMovies }]);
+    setLoading(false);
+  };
+
+  const loadPrevMovies = async (year: number, genre?: number) => {
+
+    if (containerRef.current) {
+      const previousScrollHeight = containerRef.current.scrollHeight;
+      const previousScrollTop = containerRef.current.scrollTop;
+
+      const fetchedMovies = await fetchMovies(year, genre);
+
+      setMoviesByYear((prevData) => {
+        const newMovies = [{ year: year, movies: fetchedMovies }, ...prevData];
+        requestAnimationFrame(() => {
+          if (containerRef.current) {
+            const newScrollHeight = containerRef.current.scrollHeight;
+            const newScrollTop = previousScrollTop + (newScrollHeight - previousScrollHeight);
+
+            window.scrollTo(0, newScrollTop);
+          }
+        });
+        console.groupEnd();
+        return newMovies;
+      });
+    }
   };
 
   const loadMoreMovies = async (year: number, genre?: number) => {
     const fetchedMovies = await fetchMovies(year, genre);
     setMoviesByYear((prevData) => [
       ...prevData,
-      { year: currentYear, movies: fetchedMovies },
+      { year: year, movies: fetchedMovies },
     ]);
   };
 
   useEffect(() => {
-    !loading && loadMoreMovies(currentYear, appliedFilter);
-  }, [currentYear]);
-
-  useEffect(() => {
-    setLoading(true);
-    loadMovies(currentYear, appliedFilter);
-    setLoading(false);
+    loadMovies(2012, appliedFilter);
   }, [appliedFilter]);
 
   if (loading) {
@@ -106,12 +146,14 @@ const MoviesContainer = ({ appliedFilter }: tMoviesContainerProps) => {
   }
 
   return (
-    <div className={blk}>
+    <div className={blk} ref = {containerRef}>
+      <div className={bemClass([blk, "spinner"])} ref={topRef}>
+      </div>
       {moviesByYear.map(({ year, movies }) => (
         <YearSection key={year} year={year} movies={movies} />
       ))}
-      {currentYear !== presentYear && (
-        <div className={bemClass([blk, "spinner"])} ref={spinnerRef}>
+      {maxYear !== presentYear && (
+        <div className={bemClass([blk, "spinner"])} ref={bottomRef}>
           <Spinner />
         </div>
       )}

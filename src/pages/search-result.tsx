@@ -1,25 +1,36 @@
-import React from "react";
+import React, { Dispatch } from "react";
 
+import { tMovie } from "@components/year-section";
+import SearchResultContainer from "@components/search-result-container";
 import { ActionsContainer, BackToHome, Illustration } from "@components";
 
-import searching from "./../images/searching.svg";
-import { useParams } from "react-router";
+import searchingMovie from "./../images/searching.svg";
 
 const blk = "search-result-page";
-const SearchResult = () => {
-  const { query } = useParams();
+const SearchResult = ({
+  searchData,
+  searching,
+}: {
+  searchData: Array<tMovie>;
+  searching: boolean;
+}) => {
 
-  console.log(query, "params");
   return (
     <main>
       <ActionsContainer>
         <BackToHome />
       </ActionsContainer>
-      <Illustration
-        alt="searching"
-        path={searching}
-        description="Searching"
-      />
+      {searching ? (
+        <Illustration
+          alt="searching"
+          path={searchingMovie}
+          description="Searching"
+        />
+      ) : (
+        <SearchResultContainer
+          result={searchData}
+        />
+      )}
     </main>
   );
 };

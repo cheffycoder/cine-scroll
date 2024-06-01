@@ -1,30 +1,32 @@
-import React from "react";
+import React, { Dispatch } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 
-import { bemClass } from "@utils";
 import { Text } from "@base";
+import { bemClass } from "@utils";
 import SearchInput from "@components/search";
+import { tMovie } from "@components/year-section";
 
-import logo from "./../../images/cine-scroll-logo.png";
 import search from "./../../images/search.svg";
+import logo from "./../../images/cine-scroll-logo.png";
 
 import "./style.scss";
 
 const blk = "header";
-const Header = () => {
+const Header = ({
+  setSearchData,
+  setSearching
+}: {
+  setSearchData: Dispatch<React.SetStateAction<Array<tMovie>>>;
+  setSearching: Dispatch<React.SetStateAction<boolean>>;
+}) => {
   const { pathname } = useLocation();
-  const isSearchPage = pathname.includes("/search")
+  const isSearchPage = pathname.includes("/search");
 
   return (
     <header className={blk}>
       <div className={bemClass([blk, "company"])}>
         <NavLink to="/" className={bemClass([blk, "company-logo"])}>
-          <img
-            src={logo}
-            alt="logo"
-            width="auto"
-            height="100%"
-          />
+          <img src={logo} alt="logo" width="auto" height="100%" />
         </NavLink>
         <Text
           typography="xxxl"
@@ -35,7 +37,12 @@ const Header = () => {
         </Text>
       </div>
       {isSearchPage ? (
-        <SearchInput className={bemClass([blk, 'search-input'])} placeholder="Search"/>
+        <SearchInput
+          className={bemClass([blk, "search-input"])}
+          placeholder="Search"
+          setSearchData={setSearchData}
+          setSearching={setSearching}
+        />
       ) : (
         <NavLink to="/search" className={bemClass([blk, "search"])}>
           <img src={search} alt="search" height="100%" width="auto" />

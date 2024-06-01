@@ -1,0 +1,21 @@
+@import "~/src/sass/style.scss";
+
+
+.search-result-container {
+    width: 100%;
+    margin-bottom: 50px;
+    border: 1px dotted $gray-dark;
+    border-radius: 15px;
+    background: $gray-lighter;
+
+    &__movies {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+}
+
+.no-data {
+    text-align: center;
+    width: 35%;
+}
